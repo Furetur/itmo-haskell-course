@@ -7,13 +7,13 @@ packages:
 - completed:
     hackage: tasty-html-0.4.1.4@sha256:18ed7c6fb79e38348e3512d90ef4b5a852a39b1d3a3a2328ac5c3f23647a6f82,1234
     pantry-tree:
-      size: 609
       sha256: 776b04064269bd758e9806810d34fcd1a9952e36dfe36192bf45efa93c1f5f0a
+      size: 609
   original:
     hackage: tasty-html-0.4.1.4@sha256:18ed7c6fb79e38348e3512d90ef4b5a852a39b1d3a3a2328ac5c3f23647a6f82,1234
 snapshots:
 - completed:
-    size: 587113
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/6.yaml
-    sha256: f74c482d7c93739ecf3abfbc0f2dea1c20a2dfb2462c689846ed55a9653b66f7
-  original: lts-18.6
+    sha256: 1d663bec402f77fa09fa3e8cf288c3c7eb18a1f28a5e0c331ac47adeacd21346
+    size: 640034
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/21/16.yaml
+  original: lts-21.16
