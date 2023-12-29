@@ -20,14 +20,14 @@ intoDigits x = helper [] (abs x)
             let curDigit = x `mod` 10
                 nextPart = x `div` 10
                 acc' = (curDigit:acc)
-            in if nextPart == 0 then acc' else (helper acc' nextPart)
+            in if nextPart == 0 then acc' else helper acc' nextPart
 
 count :: (Eq a) => (Ord a) => [a] -> [(Int, a)]
 count lst = foldl helper [] (sort lst)
     where
         helper :: (Eq a) => [(Int, a)] -> a -> [(Int, a)]
         helper [] x = [(1, x)]
-        helper ((n, x):acc) y = if x == y then ((n+1, x):acc) else ((1, y):(n, x):acc)
+        helper ((n, x):acc) y = if x == y then (n+1, x):acc else (1, y):(n, x):acc
 
 -- Дан список чисел. Вернуть самую часто встречающуюся *цифру* в этих числах (если таковых несколько -- вернуть любую)
 mostFreq :: [Int] -> Int
@@ -44,7 +44,7 @@ mostFreq lst =
 
 contains :: (Eq a) => a -> [a] -> Bool
 contains _ [] = False
-contains x (h:t) = if x == h then True else contains x t
+contains x (h:t) = (x == h) || contains x t
 
 -- Дан список lst. Вернуть список элементов из lst без повторений, порядок может быть произвольным.
 uniq :: (Eq a) => [a] -> [a]
@@ -52,13 +52,13 @@ uniq lst = helper [] lst
     where
         helper :: (Eq a) => [a] -> [a] -> [a]
         helper acc [] = acc
-        helper acc (x:lst) = if (contains x acc) then helper acc lst else helper (x:acc) lst
+        helper acc (x:lst) = if contains x acc then helper acc lst else helper (x:acc) lst
 
 -- Does not preserve order
 findAndPop lst pred = helper [] lst
     where
         helper acc [] = (Nothing, acc)
-        helper acc (x:t) = if (pred x) then (Just x, acc ++ t) else helper (x:acc) t
+        helper acc (x:t) = if pred x then (Just x, acc ++ t) else helper (x:acc) t
 
 
 groupByFirst :: (Eq k) => [(k, a)] -> [(k, [a])]
