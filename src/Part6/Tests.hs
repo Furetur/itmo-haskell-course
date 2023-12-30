@@ -59,14 +59,30 @@ listToSparse matrix =
       sparseMatrixElements = Data.Map.fromList [((i, j), val) | (row, i) <- zip matrix [0 ..], (val, j) <- zip row [0 ..], val /= 0]
     }
 
+diag :: [Int] -> [[Int]]
 diag list = [[if col_j == row_i then x else 0 | (_, col_j) <- zip list [0 ..]] | (x, row_i) <- zip list [0 ..]]
 
+someMatrix :: [Int] -> [[Int]]
 someMatrix list = [[if col_j == row_i then x + row_i else col_j | (_, col_j) <- zip list [0 ..]] | (x, row_i) <- zip list [0 ..]]
 
 prop_multiplication_of_list_and_sparse_is_the_same lst =
   listToSparse (a `multiplyMatrix` b) == listToSparse a `multiplyMatrix` listToSparse b
   where
-    lst' = 1:lst
+    lst' = 1 : lst
     a :: [[Int]]
     a = diag lst'
     b = someMatrix lst'
+
+prop_determinant_of_int_is_itself i = determinant i == i
+
+unit_list_eye_determinant = determinant e @=? 1
+  where
+    e :: [[Int]]; e = eye 5
+
+unit_list_diag_determinant = determinant m @=? product lst
+    where lst = [1..8]
+          m = diag lst
+
+unit_sparse_diag_determinant = determinant m @=? product lst
+    where lst = [1..10]
+          m = listToSparse (diag lst)
